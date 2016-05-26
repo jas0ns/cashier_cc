@@ -12,12 +12,19 @@ CPPFLAGS += -isystem $(GTEST_DIR)/include
 
 CXXFLAGS += -g -Wall -Wextra -pthread -std=c++11
 
-TESTS = sample_unittest
+PROJECT = cashier
+
+TESTS = commodity_test shopping_item_test
+#rebate_promotions_test 
+# shop_test \
+#				shopping_item_test shopping_cart_test
 
 GTEST_HEADERS = $(GTEST_DIR)/include/gtest/*.h \
                 $(GTEST_DIR)/include/gtest/internal/*.h
 
-all : $(TESTS)
+all : $(PROJECT) 
+	
+test : $(TESTS)
 
 clean :
 	rm -f $(TESTS) *.a *.o
@@ -40,12 +47,30 @@ gtest.a : gtest-all.o
 gtest_main.a : gtest-all.o gtest_main.o
 	$(AR) $(ARFLAGS) $@ $^
 
-sample2.o : $(SRC_DIR)/sample2.cc $(SRC_DIR)/sample2.h $(GTEST_HEADERS)
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(SRC_DIR)/sample2.cc
+# commodity
+commodity.o : $(SRC_DIR)/commodity.cc $(GTEST_HEADERS)
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(SRC_DIR)/commodity.cc -o $@
 
-sample_unittest.o : $(SRC_DIR)/sample2_unittest.cc \
-                     $(SRC_DIR)/sample2.h $(GTEST_HEADERS)
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(SRC_DIR)/sample2_unittest.cc -o $@
+commodity_test.o : $(SRC_DIR)/commodity_test.cc $(GTEST_HEADERS)
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(SRC_DIR)/commodity_test.cc -o $@
 
-sample_unittest : sample2.o sample_unittest.o gtest_main.a
+commodity_test : commodity.o commodity_test.o	gtest_main.a
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@
+
+# shopping_item
+shopping_item.o : $(SRC_DIR)/shopping_item.cc $(GTEST_HEADERS)
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(SRC_DIR)/shopping_item.cc -o $@
+
+shopping_item_test.o : $(SRC_DIR)/shopping_item_test.cc $(GTEST_HEADERS)
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(SRC_DIR)/shopping_item_test.cc -o $@
+
+shopping_item_test : shopping_item.o shopping_item_test.o commodity.o gtest_main.a
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@
+
+# cashier
+main.o : $(SRC_DIR)/main.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(SRC_DIR)/main.cc $^ -o $@
+
+cashier : commodity.o rebate_promotions.o shop.o \
+					shopping_item.o shopping_cart.o main.o
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@
