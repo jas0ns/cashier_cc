@@ -14,13 +14,13 @@ const char kInput_Barcode_Str[] = "[ 'ITEM000001', \
                                      'ITEM000003', \
                                      'ITEM000003' ]";
 
-TEST(Shop, InitShoppingCartFromString) {
+TEST(Shopping_Cart, InitShoppingCartFromString) {
   Shopping_Cart shopping_cart;
   shopping_cart.InitShoppingCartFromString(kInputBarcode);
   EXPECT_EQ(3, shopping_cart()->size());
 }
 
-TEST(Shop, InitShoppingCartFromFile) {
+TEST(Shopping_Cart, InitShoppingCartFromFile) {
   Shopping_Cart shopping_cart;
   shopping_cart.InitShoppingCartFromDir(kInputBarcode);
   EXPECT_EQ(3, shopping_cart()->size());
@@ -34,7 +34,7 @@ TEST(Shopping_Cart, CalculateTotalPrice) {
   shopping_cart.InitShoppingCartFromString(kInputBarcode);
   shopping_cart.CalculateTotalPrice();
 
-  EXPECT_EQ(108.35, shopping_cart->total_price());
-  EXPECT_EQ(14.15, shopping_cart->total_allowance());
+  EXPECT_DOUBLE_EQ(108.35, shopping_cart->total_price());
+  EXPECT_DOUBLE_EQ(14.15, shopping_cart->total_allowance());
 }
 
