@@ -1,11 +1,11 @@
 #ifndef CASHIER_SHOPPING_ITEM_H_
 #define CASHIER_SHOPPING_ITEM_H_
 
-#include "commodity.h"
+class Commodity;
 
 class Shopping_Item {
  public:
-  Shopping_Item(): commodity_(NULL), amount_(0), 
+  Shopping_Item() : commodity_(0), amount_(0), 
                     subtotal_(0.0), allowance_(0.0) {}
 
   void set_commodity(Commodity* pc) { commodity_ = pc; }

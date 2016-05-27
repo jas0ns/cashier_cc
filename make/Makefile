@@ -10,14 +10,12 @@ SRC_DIR = ../src
 
 CPPFLAGS += -isystem $(GTEST_DIR)/include
 
-CXXFLAGS += -g -Wall -Wextra -pthread -std=c++11
+CXXFLAGS += -g -Wall -Wextra -pthread 
 
 PROJECT = cashier
 
-TESTS = commodity_test shopping_item_test
-#rebate_promotions_test 
-# shop_test \
-#				shopping_item_test shopping_cart_test
+TESTS = commodity_test.out shopping_item_test.out \
+				promotions_test.out
 
 GTEST_HEADERS = $(GTEST_DIR)/include/gtest/*.h \
                 $(GTEST_DIR)/include/gtest/internal/*.h
@@ -27,7 +25,7 @@ all : $(PROJECT)
 test : $(TESTS)
 
 clean :
-	rm -f $(TESTS) *.a *.o
+	rm -f $(TESTS) *.out *.a *.o
 
 # Builds gtest.a and gtest_main.a.
 
@@ -48,23 +46,37 @@ gtest_main.a : gtest-all.o gtest_main.o
 	$(AR) $(ARFLAGS) $@ $^
 
 # commodity
-commodity.o : $(SRC_DIR)/commodity.cc $(GTEST_HEADERS)
+commodity.o : $(SRC_DIR)/commodity.cc
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(SRC_DIR)/commodity.cc -o $@
 
 commodity_test.o : $(SRC_DIR)/commodity_test.cc $(GTEST_HEADERS)
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(SRC_DIR)/commodity_test.cc -o $@
 
-commodity_test : commodity.o commodity_test.o	gtest_main.a
+commodity_test.out : commodity.o commodity_test.o	gtest_main.a
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@
 
 # shopping_item
-shopping_item.o : $(SRC_DIR)/shopping_item.cc $(GTEST_HEADERS)
+shopping_item.o : $(SRC_DIR)/shopping_item.cc 
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(SRC_DIR)/shopping_item.cc -o $@
 
 shopping_item_test.o : $(SRC_DIR)/shopping_item_test.cc $(GTEST_HEADERS)
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(SRC_DIR)/shopping_item_test.cc -o $@
 
-shopping_item_test : shopping_item.o shopping_item_test.o commodity.o gtest_main.a
+shopping_item_test.out : shopping_item.o shopping_item_test.o commodity.o gtest_main.a
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@
+
+# Promotions
+promotions.o : $(SRC_DIR)/promotions.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(SRC_DIR)/promotions.cc -o $@
+
+promotions_test.o : $(SRC_DIR)/promotions_test.cc $(GTEST_HEADERS)
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(SRC_DIR)/promotions_test.cc -o $@
+
+rebate_promotions.o : $(SRC_DIR)/rebate_promotions.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(SRC_DIR)/rebate_promotions.cc -o $@
+
+promotions_test.out : promotions.o rebate_promotions.o \
+									promotions_test.o shopping_item.o gtest_main.a
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@
 
 # cashier

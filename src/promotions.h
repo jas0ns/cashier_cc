@@ -1,16 +1,25 @@
 #ifndef CASHIER_PROMOTIONS_H_
 #define CASHIER_PROMOTIONS_H_
 
-#include "shopping_item.h"
+#include <string>
+
+class Shopping_Item;
 
 class Promotions {
  public:
   Promotions() {}
   virtual void CalculatePromotions(Shopping_Item*) = 0;
+  void set_name(std::string n) { name = n; }
+  void set_arguments(std::string a) { arguments = a; }
 
- private:
+  static Promotions* GetPromotionsInstance(
+      const char type, const std::string name, 
+      const std::string arguments);
+
+ //protected:
+  std::string name;
+  std::string arguments;
 }; 
 
-Promotions* GetPromotionsInstance();
 
 #endif // CASHIER_PROMOTIONS_H_

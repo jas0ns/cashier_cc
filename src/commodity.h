@@ -3,7 +3,7 @@
 
 #include <string>
 
-#include "promotions.h"
+class Promotions;
 
 class Commodity {
  public:
