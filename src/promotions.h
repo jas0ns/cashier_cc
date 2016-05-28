@@ -13,8 +13,8 @@ class Promotions {
   void set_arguments(std::string a) { arguments = a; }
 
   static Promotions* GetPromotionsInstance(
-      const char type, const std::string name, 
-      const std::string arguments);
+      const int type, const std::string& name, 
+      const std::string& arguments);
 
  //protected:
   std::string name;

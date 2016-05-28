@@ -7,7 +7,7 @@ class Promotions;
 
 class Commodity {
  public:
-  Commodity() {}
+  Commodity() : promotions_(NULL) {}
 
   void set_barcode(std::string s) { barcode_ = s; }
   void set_name(std::string s) { name_ = s; }
@@ -15,6 +15,7 @@ class Commodity {
   void set_category(std::string s) { category_ = s; }
   void set_subCategory(std::string s) { subCategory_ = s; }
   void set_price(double p) { price_ = p; }
+  void set_promotions(Promotions* p) { promotions_ = p; }
 
   std::string barcode() { return barcode_; }
   std::string name() { return name_; }

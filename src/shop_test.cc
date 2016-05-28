@@ -5,7 +5,7 @@
 #include "shop.h"
 #include "shopping_cart.h"
 
-const std::string kShopName = "ThoughtWorks"
+const std::string kShopName("ThoughtWorks");
 
 TEST(Shop, ConstructorFromString) {
   Shop si(kShopName);
@@ -13,12 +13,12 @@ TEST(Shop, ConstructorFromString) {
 }
 
 
-const char[] kInvoice = "ThoughtWorks\n"
-                苹果 120 \n
-                ----------------------------\n
-                单品打折商品\n
-                ----------------------------\n
-                总计：123123.00";
+const std::string kInvoice = "ThoughtWorks\n
+                              苹果 120 \n
+                              ----------------------------\n
+                              单品打折商品\n
+                              ----------------------------\n
+                              总计：123123.00";
 
 TEST(Shop, GenerateInvoice) {
   Shop shop(kShopName);
@@ -31,4 +31,5 @@ TEST(Shop, GenerateInvoice) {
 
   EXPECT_STREQ(kInvoice, s.c_str());
 }
+
 

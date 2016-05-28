@@ -6,7 +6,7 @@
 #include "shopping_item.h"
 #include "promotions.h"
 
-const char type = 0x00;
+const int type = 0;
 const std::string name("单品打折");
 const std::string arguments("0.8");
 const double subtotal = 100.0;

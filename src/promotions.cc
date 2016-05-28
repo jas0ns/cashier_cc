@@ -3,11 +3,11 @@
 #include <iostream>
 
 Promotions* Promotions::GetPromotionsInstance(
-    const char type, const std::string name, 
-    const std::string arguments) {
+    const int type, const std::string& name, 
+    const std::string& arguments) {
   Promotions *promotions;
   switch (type) {
-    case 0x00: 
+    case 0: 
       promotions = new Rebate_Promotions();
       promotions->set_name(name);
       promotions->set_arguments(arguments);
