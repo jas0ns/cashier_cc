@@ -17,12 +17,13 @@ class Commodity {
   void set_price(double p) { price_ = p; }
   void set_promotions(Promotions* p) { promotions_ = p; }
 
-  std::string barcode() { return barcode_; }
-  std::string name() { return name_; }
-  std::string unit() { return unit_; }
-  std::string category() { return category_; }
-  std::string subCategory() { return subCategory_; }
-  double price() { return price_; }
+  std::string barcode() const { return barcode_; }
+  std::string name() const { return name_; }
+  std::string unit() const { return unit_; }
+  std::string category() const { return category_; }
+  std::string subCategory() const { return subCategory_; }
+  double price() const { return price_; }
+  Promotions* promotions() const { return promotions_; }
 
  private:
   std::string barcode_;

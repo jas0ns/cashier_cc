@@ -16,7 +16,7 @@ class Promotions {
       const int type, const std::string& name, 
       const std::string& arguments);
 
- //protected:
+ protected:
   std::string name;
   std::string arguments;
 }; 

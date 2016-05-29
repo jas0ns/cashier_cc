@@ -9,16 +9,13 @@ class Shopping_Cart;
 
 class Shop {
  public:
-  explicit Shop(std:string s) name_(s) {}
-  void Init_Commodities(std::string);
+  explicit Shop(std::string s) : name_(s) {}
   std::string GenerateInvoice(Shopping_Cart*);
-  const std::map<string, Commodity*>& commodity_map() {
-    return commodity_map_;
-  }
+
+  std::string name() const { return name_; }
   
  private:
-  Commodity_Map commodity_map_;
-  std:string name_;
+  std::string name_;
 };
 
 #endif // CASHIER_SHOP_H_

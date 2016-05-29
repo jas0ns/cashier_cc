@@ -8,28 +8,20 @@
 const std::string kShopName("ThoughtWorks");
 
 TEST(Shop, ConstructorFromString) {
-  Shop si(kShopName);
-  EXPECT_EQ(0, strcmp(si.name(), kShopName));
+  Shop shop(kShopName);
+  EXPECT_STREQ(shop.name().c_str(), kShopName.c_str());
 }
-
-
-const std::string kInvoice = "ThoughtWorks\n
-                              苹果 120 \n
-                              ----------------------------\n
-                              单品打折商品\n
-                              ----------------------------\n
-                              总计：123123.00";
 
 TEST(Shop, GenerateInvoice) {
   Shop shop(kShopName);
   Shopping_Cart shopping_cart;
-  shopping_cart.set_details_part("苹果 120\n");
-  shopping_cart.set_promotions_part("单品打折商品");
-  shopping_cart.set_summary_part("总计:123123.00");
+  shopping_cart.set_details_part(std::string("苹果 120"));
+  shopping_cart.set_promotions_part(std::string("单品打折商品"));
+  shopping_cart.set_summary_part(std::string("总计:123123.00"));
 
-  std::string s = shop.GenerateInvoice(shopping_cart);
+  std::string invoice = shop.GenerateInvoice(&shopping_cart);
 
-  EXPECT_STREQ(kInvoice, s.c_str());
+  std::cout << invoice << std::endl;
 }
 
 

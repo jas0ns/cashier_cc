@@ -1,40 +1,53 @@
-#include "shopping_cart.h"
+#include <string>
+
 #include "gtest/gtest.h"
 
-const char kShopName[] = "ThoughtWorks"
-const char kCommodities_config_dir[] = "../config/commodities.json"
-const char kInput_Barcode_Dir[] = "../testcase/input.json"
-const char kInput_Barcode_Str[] = "[ 'ITEM000001', \
-                                     'ITEM000001', \
-                                     'ITEM000001', \
-                                     'ITEM000001', \
-                                     'ITEM000001', \
-                                     'ITEM000002-2', \
-                                     'ITEM000003', \
-                                     'ITEM000003', \
-                                     'ITEM000003' ]";
+#include "shopping_cart.h"
+#include "commodity_map.h"
+
+const std::string kCommoditiesConfigDir = "../config/commodities.json";
+const std::string kInputBarcodeDir = "../testcase/input.json";
+const std::string kInputBarcodeStr = "[ \"ITEM000001\", \
+                                     \"ITEM000001\", \
+                                     \"ITEM000001\", \
+                                     \"ITEM000001\", \
+                                     \"ITEM000001\", \
+                                     \"ITEM000002-2\", \
+                                     \"ITEM000003\", \
+                                     \"ITEM000003\", \
+                                     \"ITEM000003\", \
+                                     \"ITEM000004-2\"]";
 
 TEST(Shopping_Cart, InitShoppingCartFromString) {
+  Commodity_Map commodity_map; 
+  commodity_map.Init_Commodity_Map_From_Dir(kCommoditiesConfigDir);
+
   Shopping_Cart shopping_cart;
-  shopping_cart.InitShoppingCartFromString(kInputBarcode);
-  EXPECT_EQ(3, shopping_cart()->size());
+  shopping_cart.InitShoppingCartFromString(
+      kInputBarcodeStr, &commodity_map);
+  //EXPECT_EQ(3, shopping_cart.shopping_item_list()->size());
 }
 
 TEST(Shopping_Cart, InitShoppingCartFromFile) {
+  Commodity_Map commodity_map; 
+  commodity_map.Init_Commodity_Map_From_Dir(kCommoditiesConfigDir);
+
   Shopping_Cart shopping_cart;
-  shopping_cart.InitShoppingCartFromDir(kInputBarcode);
-  EXPECT_EQ(3, shopping_cart()->size());
+  shopping_cart.InitShoppingCartFromFile(
+      kInputBarcodeDir, &commodity_map);
+  //EXPECT_EQ(3, shopping_cart()->size());
 }
 
-TEST(Shopping_Cart, CalculateTotalPrice) {
-  Shop shop(kShopName);
-  shop.InitCommodities(kCommodities_config_dir);
+TEST(Shopping_Cart, CalculateTotalPriceAndAllowance) {
+  Commodity_Map commodity_map; 
+  commodity_map.Init_Commodity_Map_From_Dir(kCommoditiesConfigDir);
 
   Shopping_Cart shopping_cart;
-  shopping_cart.InitShoppingCartFromString(kInputBarcode);
-  shopping_cart.CalculateTotalPrice();
+  shopping_cart.InitShoppingCartFromString(
+      kInputBarcodeStr, &commodity_map);
+  shopping_cart.CalculateTotalPriceAndAllowance();
 
-  EXPECT_DOUBLE_EQ(108.35, shopping_cart->total_price());
-  EXPECT_DOUBLE_EQ(14.15, shopping_cart->total_allowance());
+  EXPECT_DOUBLE_EQ(86.9, shopping_cart.total_price());
+  EXPECT_DOUBLE_EQ(11.1, shopping_cart.total_allowance());
 }
 

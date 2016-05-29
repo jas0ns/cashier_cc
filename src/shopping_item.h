@@ -13,10 +13,10 @@ class Shopping_Item {
   void set_subtotal(double s) { subtotal_ = s; }
   void set_allowance(double a) { allowance_ = a; }
 
-  Commodity* commodity() { return commodity_; }
-  int amount() { return amount_; }
-  double subtotal() { return subtotal_; }
-  double allowance() { return allowance_; }
+  Commodity* commodity() const { return commodity_; }
+  int amount() const { return amount_; }
+  double subtotal() const { return subtotal_; }
+  double allowance() const { return allowance_; }
 
  private:
   Commodity* commodity_;

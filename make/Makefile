@@ -18,7 +18,7 @@ PROJECT = cashier
 
 TESTS = commodity_test.out shopping_item_test.out \
 				promotions_test.out commodity_map_test.out \
-				#shop_test.out
+				shopping_cart_test.out shop_test.out
 
 GTEST_HEADERS = $(GTEST_DIR)/include/gtest/*.h \
                 $(GTEST_DIR)/include/gtest/internal/*.h
@@ -56,7 +56,7 @@ cjson.o : $(CJSON_DIR)/cjson.c
 commodity.o : $(SRC_DIR)/commodity.cc
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(SRC_DIR)/commodity.cc -o $@
 
-commodity_test.o : $(SRC_DIR)/commodity_test.cc $(GTEST_HEADERS)
+commodity_test.o : $(SRC_DIR)/commodity_test.cc
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(SRC_DIR)/commodity_test.cc -o $@
 
 commodity_test.out : commodity.o commodity_test.o	gtest_main.a
@@ -66,7 +66,7 @@ commodity_test.out : commodity.o commodity_test.o	gtest_main.a
 shopping_item.o : $(SRC_DIR)/shopping_item.cc 
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(SRC_DIR)/shopping_item.cc -o $@
 
-shopping_item_test.o : $(SRC_DIR)/shopping_item_test.cc $(GTEST_HEADERS)
+shopping_item_test.o : $(SRC_DIR)/shopping_item_test.cc
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(SRC_DIR)/shopping_item_test.cc -o $@
 
 shopping_item_test.out : shopping_item.o shopping_item_test.o commodity.o gtest_main.a
@@ -79,7 +79,7 @@ promotions.o : $(SRC_DIR)/promotions.cc
 rebate_promotions.o : $(SRC_DIR)/rebate_promotions.cc
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(SRC_DIR)/rebate_promotions.cc -o $@
 
-promotions_test.o : $(SRC_DIR)/promotions_test.cc $(GTEST_HEADERS)
+promotions_test.o : $(SRC_DIR)/promotions_test.cc
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(SRC_DIR)/promotions_test.cc -o $@
 
 promotions_test.out : promotions.o rebate_promotions.o \
@@ -90,12 +90,26 @@ promotions_test.out : promotions.o rebate_promotions.o \
 commodity_map.o : $(SRC_DIR)/commodity_map.cc
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(SRC_DIR)/commodity_map.cc -o $@
 
-commodity_map_test.o : $(SRC_DIR)/commodity_map_test.cc $(GTEST_HEADERS)
+commodity_map_test.o : $(SRC_DIR)/commodity_map_test.cc
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(SRC_DIR)/commodity_map_test.cc -o $@
 
 commodity_map_test.out : commodity.o commodity_map.o \
 												 commodity_map_test.o gtest_main.a \
 												 promotions.o rebate_promotions.o cjson.o
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@
+
+# ShoppingCart
+
+shopping_cart.o : $(SRC_DIR)/shopping_cart.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(SRC_DIR)/shopping_cart.cc -o $@
+
+shopping_cart_test.o : $(SRC_DIR)/shopping_cart_test.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(SRC_DIR)/shopping_cart_test.cc -o $@
+
+shopping_cart_test.out : shopping_item.o shopping_cart.o \
+												 commodity.o commodity_map.o \
+												 promotions.o rebate_promotions.o \
+												 shopping_cart_test.o cjson.o gtest_main.a
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@
 
 # Shop
@@ -105,7 +119,9 @@ shop.o : $(SRC_DIR)/shop.cc
 shop_test.o : $(SRC_DIR)/shop_test.cc $(GTEST_HEADERS) 
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(SRC_DIR)/shop_test.cc -o $@
 
-shop_test.out : shop.o shopping_cart.o shop_test.o gtest_main.a
+shop_test.out : shop.o shopping_cart.o shop_test.o gtest_main.a \
+								commodity.o commodity_map.o promotions.o \
+								rebate_promotions.o shopping_item.o cjson.o
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@
 
 # cashier
