@@ -126,8 +126,9 @@ shop_test.out : shop.o shopping_cart.o shop_test.o gtest_main.a \
 
 # cashier
 main.o : $(SRC_DIR)/main.cc
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(SRC_DIR)/main.cc $^ -o $@
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(SRC_DIR)/main.cc -o $@
 
-cashier : commodity.o rebate_promotions.o shop.o \
-					shopping_item.o shopping_cart.o main.o
+cashier : commodity.o promotions.o rebate_promotions.o shop.o \
+					commodity_map.o shopping_item.o shopping_cart.o main.o \
+					cjson.o
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@

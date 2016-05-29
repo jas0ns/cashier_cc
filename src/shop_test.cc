@@ -20,8 +20,6 @@ TEST(Shop, GenerateInvoice) {
   shopping_cart.set_summary_part(std::string("总计:123123.00"));
 
   std::string invoice = shop.GenerateInvoice(&shopping_cart);
-
-  std::cout << invoice << std::endl;
 }
 
 

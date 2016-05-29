@@ -1,8 +1,7 @@
 {
   "commodities":[
     {"barcode":"ITEM000001","name":"苹果","unit":"斤",
-     "category":"食品","subCategory":"水果","price":5.0, 
-     "promotions":{"type":0,"name":"单品打折","print":"折扣：八折","arguments":"0.8"}},
+     "category":"食品","subCategory":"水果","price":5.0},
 
     {"barcode":"ITEM000002","name":"可口可乐","unit":"瓶",
      "category":"食品","subCategory":"饮料","price":3.0},
@@ -11,7 +10,6 @@
      "category":"运动器材","subCategory":"球类","price":2.0},
 
     {"barcode":"ITEM000004","name":"牛肉","unit":"斤",
-     "category":"食品","subCategory":"肉类","price":30.5, 
-     "promotions":{"type":0,"name":"单品打折","print":"折扣：九折","arguments":"0.9"}}
+     "category":"食品","subCategory":"肉类","price":30.5} 
   ]
 }

@@ -23,10 +23,10 @@ void Commodity_Map::Init_Commodity_Map_From_Dir(
   std::string *commodities = new std::string(begin, end);
   in.close();
 
-
   cJSON* jsonRoot = cJSON_Parse(commodities->c_str());
   if (!jsonRoot) {
     std::cerr << "Wrong format of Config file" << std::endl;
+    exit(1);
   }
   cJSON* commodity_array_json = cJSON_GetObjectItem(jsonRoot, "commodities");
   cJSON* commodity_json = commodity_array_json->child;
@@ -50,17 +50,20 @@ void Commodity_Map::Init_Commodity_Map_From_Dir(
       int type = cJSON_GetObjectItem(promotions_json, "type")->valueint;
       std::string name = std::string(
           cJSON_GetObjectItem(promotions_json, "name")->valuestring);
+      std::string print = std::string(
+          cJSON_GetObjectItem(promotions_json, "print")->valuestring);
       std::string arguments = std::string(
           cJSON_GetObjectItem(promotions_json, "arguments")->valuestring);
       Promotions *promotions = 
-          Promotions::GetPromotionsInstance(type, name, arguments);
+          Promotions::GetPromotionsInstance(type, name, print, arguments);
       commodity->set_promotions(promotions);
     }
 
     commodity_map_[commodity->barcode()] = commodity;
-
     commodity_json = commodity_json->next;
   }
+  cJSON_Delete(jsonRoot); 
+  delete commodities;
 }
 
 Commodity* Commodity_Map::get_commodity_by_barcode(

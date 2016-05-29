@@ -10,6 +10,7 @@ class Shopping_Cart;
 class Shop {
  public:
   explicit Shop(std::string s) : name_(s) {}
+  ~Shop() {}
   std::string GenerateInvoice(Shopping_Cart*);
 
   std::string name() const { return name_; }

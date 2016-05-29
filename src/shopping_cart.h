@@ -11,10 +11,12 @@ class Commodity_Map;
 class Shopping_Cart {
  public:
   Shopping_Cart() : total_price_(0.0), total_allowance_(0.0) {}
+  ~Shopping_Cart() {};
 
   void InitShoppingCartFromString(const std::string&, Commodity_Map*);
-  void InitShoppingCartFromFile(const std::string&, Commodity_Map*);
+ //TODO void InitShoppingCartFromFile(const std::string&, Commodity_Map*);
   void CalculateTotalPriceAndAllowance();
+  void GenerateInvoiceParts();
 
   void set_details_part(std::string s) { details_part_ = s; }
   void set_promotions_part(std::string s) { promotions_part_ = s; }
@@ -29,6 +31,7 @@ class Shopping_Cart {
  private:
   double total_price_;
   double total_allowance_;
+  std::map<int, std::string> promotions_map_;
   std::string details_part_;
   std::string promotions_part_;
   std::string summary_part_;

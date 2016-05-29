@@ -7,6 +7,7 @@ class Shopping_Item {
  public:
   Shopping_Item() : commodity_(0), amount_(0), 
                     subtotal_(0.0), allowance_(0.0) {}
+  ~Shopping_Item() {};
 
   void set_commodity(Commodity* pc) { commodity_ = pc; }
   void set_amount(int a) { amount_ = a; }

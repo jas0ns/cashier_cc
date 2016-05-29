@@ -25,9 +25,9 @@ TEST(Shopping_Cart, InitShoppingCartFromString) {
   Shopping_Cart shopping_cart;
   shopping_cart.InitShoppingCartFromString(
       kInputBarcodeStr, &commodity_map);
-  //EXPECT_EQ(3, shopping_cart.shopping_item_list()->size());
 }
 
+/* TODO
 TEST(Shopping_Cart, InitShoppingCartFromFile) {
   Commodity_Map commodity_map; 
   commodity_map.Init_Commodity_Map_From_Dir(kCommoditiesConfigDir);
@@ -37,6 +37,7 @@ TEST(Shopping_Cart, InitShoppingCartFromFile) {
       kInputBarcodeDir, &commodity_map);
   //EXPECT_EQ(3, shopping_cart()->size());
 }
+*/
 
 TEST(Shopping_Cart, CalculateTotalPriceAndAllowance) {
   Commodity_Map commodity_map; 
