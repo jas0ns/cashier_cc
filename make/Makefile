@@ -18,10 +18,10 @@ PROJECT = cashier
 
 TESTS = commodity_test.out shopping_item_test.out \
         promotions_test.out commodity_map_test.out \
-				shopping_cart_test.out shop_test.out
+        shopping_cart_test.out shop_test.out
 
 GTEST_HEADERS = $(GTEST_DIR)/include/gtest/*.h \
-								$(GTEST_DIR)/include/gtest/internal/*.h
+                $(GTEST_DIR)/include/gtest/internal/*.h
 
 all : $(PROJECT) 
 	
@@ -94,8 +94,8 @@ commodity_map_test.o : $(SRC_DIR)/commodity_map_test.cc
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(SRC_DIR)/commodity_map_test.cc -o $@
 
 commodity_map_test.out : commodity.o commodity_map.o \
-	                       commodity_map_test.o gtest_main.a \
-												 promotions.o rebate_promotions.o cjson.o
+                         commodity_map_test.o gtest_main.a \
+                         promotions.o rebate_promotions.o cjson.o
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@
 
 # ShoppingCart
@@ -107,9 +107,9 @@ shopping_cart_test.o : $(SRC_DIR)/shopping_cart_test.cc
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(SRC_DIR)/shopping_cart_test.cc -o $@
 
 shopping_cart_test.out : shopping_item.o shopping_cart.o \
-	                       commodity.o commodity_map.o \
-												 promotions.o rebate_promotions.o \
-												 shopping_cart_test.o cjson.o gtest_main.a
+                         commodity.o commodity_map.o \
+                         promotions.o rebate_promotions.o \
+                         shopping_cart_test.o cjson.o gtest_main.a
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@
 
 # Shop
@@ -120,8 +120,8 @@ shop_test.o : $(SRC_DIR)/shop_test.cc $(GTEST_HEADERS)
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(SRC_DIR)/shop_test.cc -o $@
 
 shop_test.out : shop.o shopping_cart.o shop_test.o gtest_main.a \
-	              commodity.o commodity_map.o promotions.o \
-								rebate_promotions.o shopping_item.o cjson.o
+                commodity.o commodity_map.o promotions.o \
+                rebate_promotions.o shopping_item.o cjson.o
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@
 
 # cashier
@@ -129,6 +129,6 @@ main.o : $(SRC_DIR)/main.cc
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(SRC_DIR)/main.cc -o $@
 
 cashier : commodity.o promotions.o rebate_promotions.o shop.o \
-	        commodity_map.o shopping_item.o shopping_cart.o main.o \
-					cjson.o
+          commodity_map.o shopping_item.o shopping_cart.o main.o \
+          cjson.o
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@
