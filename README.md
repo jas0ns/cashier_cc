@@ -26,10 +26,10 @@ g++ 4.8.2
 3)易于增加不同种类优惠活动<br>
 
 ###Add new promotions
-1) 继承Promotions，实现CalculatePromotions函数
+1) 继承Promotions，实现CalculatePromotions函数<br>
 2) 指定type、name、print、arguments，其中，type为int类型，用于标志优惠类型，name用于指定优惠活动名字，
-print用于打印，arguments用于解析自定义优惠参数
-3) 修改GetPromotionsInstance工厂方法，增加新的case段。
+print用于打印，arguments用于解析自定义优惠参数<br>
+3) 修改GetPromotionsInstance工厂方法，增加新的case段。<br>
 
 ###TODO
 1) 增加从文件读条形码<br>
@@ -37,10 +37,11 @@ print用于打印，arguments用于解析自定义优惠参数
 3) 增加多种优惠活动<br>
 
 ###Shortage
-1) 每种商品只能添加一种优惠活动。
-2) 增加优惠活动需要修改少部分代码。
-3) 测试用例不完善
+1) 每种商品只能添加一种优惠活动。<br>
+2) 增加优惠活动需要修改少部分代码。<br>
+3) 测试用例不完善<br> 
+4) 数据格式没有完全按照作业要求（开始读题不仔细，道歉）<br>
 
 ###BTW
-时间紧张，健壮性尤其欠考虑。
+时间紧张，健壮性欠考虑。
 
