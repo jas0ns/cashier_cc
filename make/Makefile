@@ -28,7 +28,7 @@ all : $(PROJECT)
 test : $(TESTS)
 
 clean :
-	rm -f $(TESTS) *.out *.a *.o
+	rm -f $(TESTS) cashier *.out *.a *.o
 
 # Builds gtest.a and gtest_main.a.
 
